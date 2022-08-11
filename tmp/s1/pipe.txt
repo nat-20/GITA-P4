@@ -1,0 +1,177 @@
+node_id_to_config {
+  key: 1
+  value {
+    p4info {
+      pkg_info {
+        arch: "v1model"
+      }
+      tables {
+        preamble {
+          id: 33557865
+          name: "IngressPipeImpl.acl_table"
+          alias: "acl_table"
+        }
+        match_fields {
+          id: 1
+          name: "standard_metadata.ingress_port"
+          bitwidth: 9
+          match_type: TERNARY
+        }
+        match_fields {
+          id: 2
+          name: "hdr.ethernet.dst_addr"
+          bitwidth: 48
+          match_type: TERNARY
+        }
+        match_fields {
+          id: 3
+          name: "hdr.ethernet.src_addr"
+          bitwidth: 48
+          match_type: TERNARY
+        }
+        match_fields {
+          id: 4
+          name: "hdr.ethernet.ether_type"
+          bitwidth: 16
+          match_type: TERNARY
+        }
+        action_refs {
+          id: 16833331
+        }
+        action_refs {
+          id: 16782152
+        }
+        action_refs {
+          id: 16796182
+        }
+        action_refs {
+          id: 16800567
+          annotations: "@defaultonly"
+          scope: DEFAULT_ONLY
+        }
+        direct_resource_ids: 318773822
+        size: 1024
+      }
+      tables {
+        preamble {
+          id: 33605373
+          name: "IngressPipeImpl.l2_exact_table"
+          alias: "l2_exact_table"
+        }
+        match_fields {
+          id: 1
+          name: "hdr.ethernet.dst_addr"
+          bitwidth: 48
+          match_type: EXACT
+        }
+        action_refs {
+          id: 16812802
+        }
+        action_refs {
+          id: 16796182
+          annotations: "@defaultonly"
+          scope: DEFAULT_ONLY
+        }
+        action_refs {
+          id: 16800567
+          annotations: "@defaultonly"
+          scope: DEFAULT_ONLY
+        }
+        size: 1024
+      }
+      actions {
+        preamble {
+          id: 16800567
+          name: "NoAction"
+          alias: "NoAction"
+        }
+      }
+      actions {
+        preamble {
+          id: 16796182
+          name: "IngressPipeImpl.drop"
+          alias: "drop"
+        }
+      }
+      actions {
+        preamble {
+          id: 16833331
+          name: "IngressPipeImpl.send_to_cpu"
+          alias: "send_to_cpu"
+        }
+      }
+      actions {
+        preamble {
+          id: 16782152
+          name: "IngressPipeImpl.clone_to_cpu"
+          alias: "clone_to_cpu"
+        }
+      }
+      actions {
+        preamble {
+          id: 16812802
+          name: "IngressPipeImpl.set_egress_port"
+          alias: "set_egress_port"
+        }
+        params {
+          id: 1
+          name: "port_num"
+          bitwidth: 9
+        }
+      }
+      direct_counters {
+        preamble {
+          id: 318773822
+          name: "acl_table_counter"
+          alias: "acl_table_counter"
+        }
+        spec {
+          unit: BOTH
+        }
+        direct_table_id: 33557865
+      }
+      controller_packet_metadata {
+        preamble {
+          id: 67132047
+          name: "packet_in"
+          alias: "packet_in"
+          annotations: "@controller_header(\"packet_in\")"
+        }
+        metadata {
+          id: 1
+          name: "ingress_port"
+          bitwidth: 9
+        }
+        metadata {
+          id: 2
+          name: "_pad"
+          bitwidth: 7
+        }
+      }
+      controller_packet_metadata {
+        preamble {
+          id: 67111875
+          name: "packet_out"
+          alias: "packet_out"
+          annotations: "@controller_header(\"packet_out\")"
+        }
+        metadata {
+          id: 1
+          name: "egress_port"
+          bitwidth: 9
+        }
+        metadata {
+          id: 2
+          name: "_pad"
+          bitwidth: 7
+        }
+      }
+      type_info {
+      }
+    }
+    p4_device_config: "{\n  \"header_types\" : [\n    {\n      \"name\" : \"scalars_0\",\n      \"id\" : 0,\n      \"fields\" : [\n        [\"local_metadata_t.mitm\", 1, false],\n        [\"local_metadata_t.port1\", 9, false],\n        [\"local_metadata_t.port2\", 9, false],\n        [\"_padding_0\", 5, false]\n      ]\n    },\n    {\n      \"name\" : \"standard_metadata\",\n      \"id\" : 1,\n      \"fields\" : [\n        [\"ingress_port\", 9, false],\n        [\"egress_spec\", 9, false],\n        [\"egress_port\", 9, false],\n        [\"clone_spec\", 32, false],\n        [\"instance_type\", 32, false],\n        [\"drop\", 1, false],\n        [\"recirculate_port\", 16, false],\n        [\"packet_length\", 32, false],\n        [\"enq_timestamp\", 32, false],\n        [\"enq_qdepth\", 19, false],\n        [\"deq_timedelta\", 32, false],\n        [\"deq_qdepth\", 19, false],\n        [\"ingress_global_timestamp\", 48, false],\n        [\"egress_global_timestamp\", 48, false],\n        [\"lf_field_list\", 32, false],\n        [\"mcast_grp\", 16, false],\n        [\"resubmit_flag\", 32, false],\n        [\"egress_rid\", 16, false],\n        [\"recirculate_flag\", 32, false],\n        [\"checksum_error\", 1, false],\n        [\"parser_error\", 32, false],\n        [\"priority\", 3, false],\n        [\"_padding\", 2, false]\n      ]\n    },\n    {\n      \"name\" : \"ethernet_t\",\n      \"id\" : 2,\n      \"fields\" : [\n        [\"dst_addr\", 48, false],\n        [\"src_addr\", 48, false],\n        [\"ether_type\", 16, false]\n      ]\n    },\n    {\n      \"name\" : \"ipv4_t\",\n      \"id\" : 3,\n      \"fields\" : [\n        [\"version\", 4, false],\n        [\"ihl\", 4, false],\n        [\"dscp\", 6, false],\n        [\"ecn\", 2, false],\n        [\"total_len\", 16, false],\n        [\"identification\", 16, false],\n        [\"flags\", 3, false],\n        [\"frag_offset\", 13, false],\n        [\"ttl\", 8, false],\n        [\"protocol\", 8, false],\n        [\"hdr_checksum\", 16, false],\n        [\"src_addr\", 32, false],\n        [\"dst_addr\", 32, false]\n      ]\n    },\n    {\n      \"name\" : \"cpu_out_header_t\",\n      \"id\" : 4,\n      \"fields\" : [\n        [\"egress_port\", 9, false],\n        [\"_pad\", 7, false]\n      ]\n    },\n    {\n      \"name\" : \"cpu_in_header_t\",\n      \"id\" : 5,\n      \"fields\" : [\n        [\"ingress_port\", 9, false],\n        [\"_pad\", 7, false]\n      ]\n    }\n  ],\n  \"headers\" : [\n    {\n      \"name\" : \"scalars\",\n      \"id\" : 0,\n      \"header_type\" : \"scalars_0\",\n      \"metadata\" : true,\n      \"pi_omit\" : true\n    },\n    {\n      \"name\" : \"standard_metadata\",\n      \"id\" : 1,\n      \"header_type\" : \"standard_metadata\",\n      \"metadata\" : true,\n      \"pi_omit\" : true\n    },\n    {\n      \"name\" : \"ethernet\",\n      \"id\" : 2,\n      \"header_type\" : \"ethernet_t\",\n      \"metadata\" : false,\n      \"pi_omit\" : true\n    },\n    {\n      \"name\" : \"ipv4\",\n      \"id\" : 3,\n      \"header_type\" : \"ipv4_t\",\n      \"metadata\" : false,\n      \"pi_omit\" : true\n    },\n    {\n      \"name\" : \"cpu_out\",\n      \"id\" : 4,\n      \"header_type\" : \"cpu_out_header_t\",\n      \"metadata\" : false,\n      \"pi_omit\" : true\n    },\n    {\n      \"name\" : \"cpu_in\",\n      \"id\" : 5,\n      \"header_type\" : \"cpu_in_header_t\",\n      \"metadata\" : false,\n      \"pi_omit\" : true\n    }\n  ],\n  \"header_stacks\" : [],\n  \"header_union_types\" : [],\n  \"header_unions\" : [],\n  \"header_union_stacks\" : [],\n  \"field_lists\" : [\n    {\n      \"id\" : 1,\n      \"name\" : \"fl\",\n      \"source_info\" : {\n        \"filename\" : \"p4src/main.p4\",\n        \"line\" : 142,\n        \"column\" : 34,\n        \"source_fragment\" : \"{ standard_metadata.ingress_port }\"\n      },\n      \"elements\" : [\n        {\n          \"type\" : \"field\",\n          \"value\" : [\"standard_metadata\", \"ingress_port\"]\n        }\n      ]\n    }\n  ],\n  \"errors\" : [\n    [\"NoError\", 1],\n    [\"PacketTooShort\", 2],\n    [\"NoMatch\", 3],\n    [\"StackOutOfBounds\", 4],\n    [\"HeaderTooShort\", 5],\n    [\"ParserTimeout\", 6],\n    [\"ParserInvalidArgument\", 7]\n  ],\n  \"enums\" : [],\n  \"parsers\" : [\n    {\n      \"name\" : \"parser\",\n      \"id\" : 0,\n      \"init_state\" : \"start\",\n      \"parse_states\" : [\n        {\n          \"name\" : \"start\",\n          \"id\" : 0,\n          \"parser_ops\" : [],\n          \"transitions\" : [\n            {\n              \"type\" : \"hexstr\",\n              \"value\" : \"0x00ff\",\n              \"mask\" : null,\n              \"next_state\" : \"parse_packet_out\"\n            },\n            {\n              \"value\" : \"default\",\n              \"mask\" : null,\n              \"next_state\" : \"parse_ethernet\"\n            }\n          ],\n          \"transition_key\" : [\n            {\n              \"type\" : \"field\",\n              \"value\" : [\"standard_metadata\", \"ingress_port\"]\n            }\n          ]\n        },\n        {\n          \"name\" : \"parse_packet_out\",\n          \"id\" : 1,\n          \"parser_ops\" : [\n            {\n              \"parameters\" : [\n                {\n                  \"type\" : \"regular\",\n                  \"value\" : \"cpu_out\"\n                }\n              ],\n              \"op\" : \"extract\"\n            }\n          ],\n          \"transitions\" : [\n            {\n              \"value\" : \"default\",\n              \"mask\" : null,\n              \"next_state\" : \"parse_ethernet\"\n            }\n          ],\n          \"transition_key\" : []\n        },\n        {\n          \"name\" : \"parse_ethernet\",\n          \"id\" : 2,\n          \"parser_ops\" : [\n            {\n              \"parameters\" : [\n                {\n                  \"type\" : \"regular\",\n                  \"value\" : \"ethernet\"\n                }\n              ],\n              \"op\" : \"extract\"\n            },\n            {\n              \"parameters\" : [\n                {\n                  \"type\" : \"regular\",\n                  \"value\" : \"ipv4\"\n                }\n              ],\n              \"op\" : \"extract\"\n            }\n          ],\n          \"transitions\" : [\n            {\n              \"value\" : \"default\",\n              \"mask\" : null,\n              \"next_state\" : null\n            }\n          ],\n          \"transition_key\" : []\n        }\n      ]\n    }\n  ],\n  \"parse_vsets\" : [],\n  \"deparsers\" : [\n    {\n      \"name\" : \"deparser\",\n      \"id\" : 0,\n      \"source_info\" : {\n        \"filename\" : \"p4src/main.p4\",\n        \"line\" : 242,\n        \"column\" : 8,\n        \"source_fragment\" : \"DeparserImpl\"\n      },\n      \"order\" : [\"cpu_in\", \"ethernet\", \"ipv4\"]\n    }\n  ],\n  \"meter_arrays\" : [],\n  \"counter_arrays\" : [\n    {\n      \"name\" : \"acl_table_counter\",\n      \"id\" : 0,\n      \"source_info\" : {\n        \"filename\" : \"p4src/main.p4\",\n        \"line\" : 160,\n        \"column\" : 8,\n        \"source_fragment\" : \"counters\"\n      },\n      \"is_direct\" : true,\n      \"binding\" : \"IngressPipeImpl.acl_table\"\n    }\n  ],\n  \"register_arrays\" : [],\n  \"calculations\" : [],\n  \"learn_lists\" : [],\n  \"actions\" : [\n    {\n      \"name\" : \"NoAction\",\n      \"id\" : 0,\n      \"runtime_data\" : [],\n      \"primitives\" : []\n    },\n    {\n      \"name\" : \"NoAction\",\n      \"id\" : 1,\n      \"runtime_data\" : [],\n      \"primitives\" : []\n    },\n    {\n      \"name\" : \"IngressPipeImpl.drop\",\n      \"id\" : 2,\n      \"runtime_data\" : [],\n      \"primitives\" : [\n        {\n          \"op\" : \"mark_to_drop\",\n          \"parameters\" : [\n            {\n              \"type\" : \"header\",\n              \"value\" : \"standard_metadata\"\n            }\n          ],\n          \"source_info\" : {\n            \"filename\" : \"p4src/main.p4\",\n            \"line\" : 133,\n            \"column\" : 8,\n            \"source_fragment\" : \"mark_to_drop(standard_metadata)\"\n          }\n        }\n      ]\n    },\n    {\n      \"name\" : \"IngressPipeImpl.drop\",\n      \"id\" : 3,\n      \"runtime_data\" : [],\n      \"primitives\" : [\n        {\n          \"op\" : \"mark_to_drop\",\n          \"parameters\" : [\n            {\n              \"type\" : \"header\",\n              \"value\" : \"standard_metadata\"\n            }\n          ],\n          \"source_info\" : {\n            \"filename\" : \"p4src/main.p4\",\n            \"line\" : 133,\n            \"column\" : 8,\n            \"source_fragment\" : \"mark_to_drop(standard_metadata)\"\n          }\n        }\n      ]\n    },\n    {\n      \"name\" : \"IngressPipeImpl.send_to_cpu\",\n      \"id\" : 4,\n      \"runtime_data\" : [],\n      \"primitives\" : [\n        {\n          \"op\" : \"assign\",\n          \"parameters\" : [\n            {\n              \"type\" : \"field\",\n              \"value\" : [\"standard_metadata\", \"egress_spec\"]\n            },\n            {\n              \"type\" : \"hexstr\",\n              \"value\" : \"0x00ff\"\n            }\n          ],\n          \"source_info\" : {\n            \"filename\" : \"p4src/main.p4\",\n            \"line\" : 138,\n            \"column\" : 8,\n            \"source_fragment\" : \"standard_metadata.egress_spec = 255\"\n          }\n        }\n      ]\n    },\n    {\n      \"name\" : \"IngressPipeImpl.clone_to_cpu\",\n      \"id\" : 5,\n      \"runtime_data\" : [],\n      \"primitives\" : [\n        {\n          \"op\" : \"clone_ingress_pkt_to_egress\",\n          \"parameters\" : [\n            {\n              \"type\" : \"hexstr\",\n              \"value\" : \"0x00000063\"\n            },\n            {\n              \"type\" : \"hexstr\",\n              \"value\" : \"0x1\"\n            }\n          ],\n          \"source_info\" : {\n            \"filename\" : \"p4src/main.p4\",\n            \"line\" : 142,\n            \"column\" : 8,\n            \"source_fragment\" : \"clone3(CloneType.I2E, 99, { standard_metadata.ingress_port })\"\n          }\n        }\n      ]\n    },\n    {\n      \"name\" : \"IngressPipeImpl.set_egress_port\",\n      \"id\" : 6,\n      \"runtime_data\" : [\n        {\n          \"name\" : \"port_num\",\n          \"bitwidth\" : 9\n        }\n      ],\n      \"primitives\" : [\n        {\n          \"op\" : \"assign\",\n          \"parameters\" : [\n            {\n              \"type\" : \"field\",\n              \"value\" : [\"standard_metadata\", \"egress_spec\"]\n            },\n            {\n              \"type\" : \"runtime_data\",\n              \"value\" : 0\n            }\n          ],\n          \"source_info\" : {\n            \"filename\" : \"p4src/main.p4\",\n            \"line\" : 167,\n            \"column\" : 6,\n            \"source_fragment\" : \"standard_metadata.egress_spec = port_num\"\n          }\n        }\n      ]\n    },\n    {\n      \"name\" : \"act\",\n      \"id\" : 7,\n      \"runtime_data\" : [],\n      \"primitives\" : [\n        {\n          \"op\" : \"assign\",\n          \"parameters\" : [\n            {\n              \"type\" : \"field\",\n              \"value\" : [\"standard_metadata\", \"egress_spec\"]\n            },\n            {\n              \"type\" : \"field\",\n              \"value\" : [\"cpu_out\", \"egress_port\"]\n            }\n          ],\n          \"source_info\" : {\n            \"filename\" : \"p4src/main.p4\",\n            \"line\" : 188,\n            \"column\" : 12,\n            \"source_fragment\" : \"standard_metadata.egress_spec = hdr.cpu_out.egress_port\"\n          }\n        },\n        {\n          \"op\" : \"remove_header\",\n          \"parameters\" : [\n            {\n              \"type\" : \"header\",\n              \"value\" : \"cpu_out\"\n            }\n          ],\n          \"source_info\" : {\n            \"filename\" : \"p4src/main.p4\",\n            \"line\" : 189,\n            \"column\" : 12,\n            \"source_fragment\" : \"hdr.cpu_out.setInvalid()\"\n          }\n        },\n        {\n          \"op\" : \"exit\",\n          \"parameters\" : [],\n          \"source_info\" : {\n            \"filename\" : \"p4src/main.p4\",\n            \"line\" : 190,\n            \"column\" : 12,\n            \"source_fragment\" : \"exit\"\n          }\n        }\n      ]\n    },\n    {\n      \"name\" : \"act_0\",\n      \"id\" : 8,\n      \"runtime_data\" : [],\n      \"primitives\" : [\n        {\n          \"op\" : \"add_header\",\n          \"parameters\" : [\n            {\n              \"type\" : \"header\",\n              \"value\" : \"cpu_in\"\n            }\n          ],\n          \"source_info\" : {\n            \"filename\" : \"p4src/main.p4\",\n            \"line\" : 216,\n            \"column\" : 12,\n            \"source_fragment\" : \"hdr.cpu_in.setValid()\"\n          }\n        },\n        {\n          \"op\" : \"assign\",\n          \"parameters\" : [\n            {\n              \"type\" : \"field\",\n              \"value\" : [\"cpu_in\", \"ingress_port\"]\n            },\n            {\n              \"type\" : \"field\",\n              \"value\" : [\"standard_metadata\", \"ingress_port\"]\n            }\n          ],\n          \"source_info\" : {\n            \"filename\" : \"p4src/main.p4\",\n            \"line\" : 217,\n            \"column\" : 12,\n            \"source_fragment\" : \"hdr.cpu_in.ingress_port = standard_metadata.ingress_port\"\n          }\n        },\n        {\n          \"op\" : \"exit\",\n          \"parameters\" : [],\n          \"source_info\" : {\n            \"filename\" : \"p4src/main.p4\",\n            \"line\" : 218,\n            \"column\" : 12,\n            \"source_fragment\" : \"exit\"\n          }\n        }\n      ]\n    }\n  ],\n  \"pipelines\" : [\n    {\n      \"name\" : \"ingress\",\n      \"id\" : 0,\n      \"source_info\" : {\n        \"filename\" : \"p4src/main.p4\",\n        \"line\" : 127,\n        \"column\" : 8,\n        \"source_fragment\" : \"IngressPipeImpl\"\n      },\n      \"init_table\" : \"node_2\",\n      \"tables\" : [\n        {\n          \"name\" : \"tbl_act\",\n          \"id\" : 0,\n          \"source_info\" : {\n            \"filename\" : \"p4src/main.p4\",\n            \"line\" : 188,\n            \"column\" : 42,\n            \"source_fragment\" : \"= hdr.cpu_out.egress_port; ...\"\n          },\n          \"key\" : [],\n          \"match_type\" : \"exact\",\n          \"type\" : \"simple\",\n          \"max_size\" : 1024,\n          \"with_counters\" : false,\n          \"support_timeout\" : false,\n          \"direct_meters\" : null,\n          \"action_ids\" : [7],\n          \"actions\" : [\"act\"],\n          \"base_default_next\" : \"IngressPipeImpl.l2_exact_table\",\n          \"next_tables\" : {\n            \"act\" : \"IngressPipeImpl.l2_exact_table\"\n          },\n          \"default_entry\" : {\n            \"action_id\" : 7,\n            \"action_const\" : true,\n            \"action_data\" : [],\n            \"action_entry_const\" : true\n          }\n        },\n        {\n          \"name\" : \"IngressPipeImpl.l2_exact_table\",\n          \"id\" : 1,\n          \"source_info\" : {\n            \"filename\" : \"p4src/main.p4\",\n            \"line\" : 171,\n            \"column\" : 10,\n            \"source_fragment\" : \"l2_exact_table\"\n          },\n          \"key\" : [\n            {\n              \"match_type\" : \"exact\",\n              \"name\" : \"hdr.ethernet.dst_addr\",\n              \"target\" : [\"ethernet\", \"dst_addr\"],\n              \"mask\" : null\n            }\n          ],\n          \"match_type\" : \"exact\",\n          \"type\" : \"simple\",\n          \"max_size\" : 1024,\n          \"with_counters\" : false,\n          \"support_timeout\" : false,\n          \"direct_meters\" : null,\n          \"action_ids\" : [6, 3, 1],\n          \"actions\" : [\"IngressPipeImpl.set_egress_port\", \"IngressPipeImpl.drop\", \"NoAction\"],\n          \"base_default_next\" : \"IngressPipeImpl.acl_table\",\n          \"next_tables\" : {\n            \"IngressPipeImpl.set_egress_port\" : \"IngressPipeImpl.acl_table\",\n            \"IngressPipeImpl.drop\" : \"IngressPipeImpl.acl_table\",\n            \"NoAction\" : \"IngressPipeImpl.acl_table\"\n          },\n          \"default_entry\" : {\n            \"action_id\" : 1,\n            \"action_const\" : false,\n            \"action_data\" : [],\n            \"action_entry_const\" : false\n          }\n        },\n        {\n          \"name\" : \"IngressPipeImpl.acl_table\",\n          \"id\" : 2,\n          \"source_info\" : {\n            \"filename\" : \"p4src/main.p4\",\n            \"line\" : 147,\n            \"column\" : 10,\n            \"source_fragment\" : \"acl_table\"\n          },\n          \"key\" : [\n            {\n              \"match_type\" : \"ternary\",\n              \"name\" : \"standard_metadata.ingress_port\",\n              \"target\" : [\"standard_metadata\", \"ingress_port\"],\n              \"mask\" : null\n            },\n            {\n              \"match_type\" : \"ternary\",\n              \"name\" : \"hdr.ethernet.dst_addr\",\n              \"target\" : [\"ethernet\", \"dst_addr\"],\n              \"mask\" : null\n            },\n            {\n              \"match_type\" : \"ternary\",\n              \"name\" : \"hdr.ethernet.src_addr\",\n              \"target\" : [\"ethernet\", \"src_addr\"],\n              \"mask\" : null\n            },\n            {\n              \"match_type\" : \"ternary\",\n              \"name\" : \"hdr.ethernet.ether_type\",\n              \"target\" : [\"ethernet\", \"ether_type\"],\n              \"mask\" : null\n            }\n          ],\n          \"match_type\" : \"ternary\",\n          \"type\" : \"simple\",\n          \"max_size\" : 1024,\n          \"with_counters\" : true,\n          \"support_timeout\" : false,\n          \"direct_meters\" : null,\n          \"action_ids\" : [4, 5, 2, 0],\n          \"actions\" : [\"IngressPipeImpl.send_to_cpu\", \"IngressPipeImpl.clone_to_cpu\", \"IngressPipeImpl.drop\", \"NoAction\"],\n          \"base_default_next\" : null,\n          \"next_tables\" : {\n            \"IngressPipeImpl.send_to_cpu\" : null,\n            \"IngressPipeImpl.clone_to_cpu\" : null,\n            \"IngressPipeImpl.drop\" : null,\n            \"NoAction\" : null\n          },\n          \"default_entry\" : {\n            \"action_id\" : 0,\n            \"action_const\" : false,\n            \"action_data\" : [],\n            \"action_entry_const\" : false\n          }\n        }\n      ],\n      \"action_profiles\" : [],\n      \"conditionals\" : [\n        {\n          \"name\" : \"node_2\",\n          \"id\" : 0,\n          \"source_info\" : {\n            \"filename\" : \"p4src/main.p4\",\n            \"line\" : 187,\n            \"column\" : 12,\n            \"source_fragment\" : \"hdr.cpu_out.isValid()\"\n          },\n          \"expression\" : {\n            \"type\" : \"expression\",\n            \"value\" : {\n              \"op\" : \"d2b\",\n              \"left\" : null,\n              \"right\" : {\n                \"type\" : \"field\",\n                \"value\" : [\"cpu_out\", \"$valid$\"]\n              }\n            }\n          },\n          \"true_next\" : \"tbl_act\",\n          \"false_next\" : \"IngressPipeImpl.l2_exact_table\"\n        }\n      ]\n    },\n    {\n      \"name\" : \"egress\",\n      \"id\" : 1,\n      \"source_info\" : {\n        \"filename\" : \"p4src/main.p4\",\n        \"line\" : 206,\n        \"column\" : 8,\n        \"source_fragment\" : \"EgressPipeImpl\"\n      },\n      \"init_table\" : \"node_8\",\n      \"tables\" : [\n        {\n          \"name\" : \"tbl_act_0\",\n          \"id\" : 3,\n          \"source_info\" : {\n            \"filename\" : \"p4src/main.p4\",\n            \"line\" : 216,\n            \"column\" : 12,\n            \"source_fragment\" : \"hdr.cpu_in.setValid(); ...\"\n          },\n          \"key\" : [],\n          \"match_type\" : \"exact\",\n          \"type\" : \"simple\",\n          \"max_size\" : 1024,\n          \"with_counters\" : false,\n          \"support_timeout\" : false,\n          \"direct_meters\" : null,\n          \"action_ids\" : [8],\n          \"actions\" : [\"act_0\"],\n          \"base_default_next\" : null,\n          \"next_tables\" : {\n            \"act_0\" : null\n          },\n          \"default_entry\" : {\n            \"action_id\" : 8,\n            \"action_const\" : true,\n            \"action_data\" : [],\n            \"action_entry_const\" : true\n          }\n        }\n      ],\n      \"action_profiles\" : [],\n      \"conditionals\" : [\n        {\n          \"name\" : \"node_8\",\n          \"id\" : 1,\n          \"source_info\" : {\n            \"filename\" : \"p4src/main.p4\",\n            \"line\" : 215,\n            \"column\" : 12,\n            \"source_fragment\" : \"standard_metadata.egress_port == 255\"\n          },\n          \"expression\" : {\n            \"type\" : \"expression\",\n            \"value\" : {\n              \"op\" : \"==\",\n              \"left\" : {\n                \"type\" : \"field\",\n                \"value\" : [\"standard_metadata\", \"egress_port\"]\n              },\n              \"right\" : {\n                \"type\" : \"hexstr\",\n                \"value\" : \"0x00ff\"\n              }\n            }\n          },\n          \"false_next\" : null,\n          \"true_next\" : \"tbl_act_0\"\n        }\n      ]\n    }\n  ],\n  \"checksums\" : [],\n  \"force_arith\" : [],\n  \"extern_instances\" : [],\n  \"field_aliases\" : [\n    [\n      \"queueing_metadata.enq_timestamp\",\n      [\"standard_metadata\", \"enq_timestamp\"]\n    ],\n    [\n      \"queueing_metadata.enq_qdepth\",\n      [\"standard_metadata\", \"enq_qdepth\"]\n    ],\n    [\n      \"queueing_metadata.deq_timedelta\",\n      [\"standard_metadata\", \"deq_timedelta\"]\n    ],\n    [\n      \"queueing_metadata.deq_qdepth\",\n      [\"standard_metadata\", \"deq_qdepth\"]\n    ],\n    [\n      \"intrinsic_metadata.ingress_global_timestamp\",\n      [\"standard_metadata\", \"ingress_global_timestamp\"]\n    ],\n    [\n      \"intrinsic_metadata.egress_global_timestamp\",\n      [\"standard_metadata\", \"egress_global_timestamp\"]\n    ],\n    [\n      \"intrinsic_metadata.lf_field_list\",\n      [\"standard_metadata\", \"lf_field_list\"]\n    ],\n    [\n      \"intrinsic_metadata.mcast_grp\",\n      [\"standard_metadata\", \"mcast_grp\"]\n    ],\n    [\n      \"intrinsic_metadata.resubmit_flag\",\n      [\"standard_metadata\", \"resubmit_flag\"]\n    ],\n    [\n      \"intrinsic_metadata.egress_rid\",\n      [\"standard_metadata\", \"egress_rid\"]\n    ],\n    [\n      \"intrinsic_metadata.recirculate_flag\",\n      [\"standard_metadata\", \"recirculate_flag\"]\n    ],\n    [\n      \"intrinsic_metadata.priority\",\n      [\"standard_metadata\", \"priority\"]\n    ]\n  ],\n  \"program\" : \"p4src/main.p4\",\n  \"__meta__\" : {\n    \"version\" : [2, 18],\n    \"compiler\" : \"https://github.com/p4lang/p4c\"\n  }\n}"
+    cookie {
+      cookie: 18224334126266513505
+    }
+  }
+}

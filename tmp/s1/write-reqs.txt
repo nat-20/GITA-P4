@@ -1,0 +1,14 @@
+2022-08-09 23:44:52.527205;1;type: INSERT entity { packet_replication_engine_entry { clone_session_entry { session_id: 99 replicas { egress_port: 255 instance: 1 } } } };
+2022-08-09 23:44:52.559189;1;type: INSERT entity { packet_replication_engine_entry { clone_session_entry { session_id: 99 replicas { egress_port: 255 instance: 1 } } } };Clone session id already exists
+2022-08-09 23:44:52.642076;1;type: DELETE entity { packet_replication_engine_entry { clone_session_entry { session_id: 99 } } };
+2022-08-09 23:44:52.661811;1;type: INSERT entity { packet_replication_engine_entry { clone_session_entry { session_id: 99 replicas { egress_port: 255 instance: 1 } } } };
+2022-08-09 23:44:52.670993;1;type: INSERT entity { packet_replication_engine_entry { clone_session_entry { session_id: 99 replicas { egress_port: 255 instance: 1 } } } };Clone session id already exists
+2022-08-09 23:44:52.676646;1;type: DELETE entity { packet_replication_engine_entry { clone_session_entry { session_id: 99 } } };
+2022-08-09 23:44:52.685885;1;type: INSERT entity { packet_replication_engine_entry { clone_session_entry { session_id: 99 replicas { egress_port: 255 instance: 1 } } } };
+2022-08-09 23:44:52.724563;1;type: INSERT entity { table_entry { table_id: 33557865 match { field_id: 4 ternary { value: "\010\006" mask: "\377\377" } } action { action { action_id: 16782152 } } priority: 40001 } };
+2022-08-09 23:44:52.732372;1;type: INSERT entity { table_entry { table_id: 33557865 match { field_id: 4 ternary { value: "\210\314" mask: "\377\377" } } action { action { action_id: 16782152 } } priority: 40001 } };
+2022-08-09 23:44:52.732095;1;type: INSERT entity { table_entry { table_id: 33557865 match { field_id: 4 ternary { value: "\211B" mask: "\377\377" } } action { action { action_id: 16782152 } } priority: 40001 } };
+2022-08-10 19:49:38.487640;1;type: INSERT entity { table_entry { table_id: 33605373 match { field_id: 1 exact { value: "\000\000\000\000\000\002" } } action { action { action_id: 16812802 params { param_id: 1 value: "\000\002" } } } } };
+2022-08-10 19:55:46.206445;1;type: INSERT entity { table_entry { table_id: 33605373 match { field_id: 1 exact { value: "\000\000\000\000\000\001" } } action { action { action_id: 16812802 params { param_id: 1 value: "\000\001" } } } } };
+2022-08-10 19:59:29.692649;1;type: DELETE entity { table_entry { table_id: 33605373 match { field_id: 1 exact { value: "\000\000\000\000\000\001" } } } };
+2022-08-10 20:00:20.895261;1;type: INSERT entity { table_entry { table_id: 33605373 match { field_id: 1 exact { value: "\000\000\000\000\000\001" } } action { action { action_id: 16812802 params { param_id: 1 value: "\000\001" } } } } };
